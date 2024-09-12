@@ -6,6 +6,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -26,6 +27,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.painterResource
@@ -58,115 +60,132 @@ fun DetailsView(
 
     val recipe = recipes.find { it.name == recipeName } ?: return
 
-    LazyColumn(
+    Box(
         modifier = Modifier
-            .padding(start = 6.dp, end = 6.dp)
-            .fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-
+            .fillMaxSize()
+            .background(
+                Brush.verticalGradient(
+                    colors = listOf(
+                        Color(0xFF266F53),
+                        Color(0xFFe5e5e5)
+                    ) // Blanco en la parte superior y verde en la parte inferior
+                )
+            )
     ) {
-        item {
-            IconButton(onClick = {
-                navController.navigate("home")
-            }) {
-                Icon(
-                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                    contentDescription = "Back",
-                    tint = Color.Black
-                )
-            }
-        }
-        item{
-            RecipeTitle(
-                recipe,
-                text = " ${recipe.name} recipe",
-                fontSize = 26.sp
-            )
-        }
-        item {
-            AsyncImage(
-                model = recipe.imageUrl,
-                contentDescription = "Recipe Image",
-                modifier = Modifier
-                    .clip(RoundedCornerShape(6.dp))
-                    .height(200.dp)
-            )
-        }
-        item {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 18 .dp),
-                horizontalArrangement = Arrangement.Center
+        LazyColumn(
+            modifier = Modifier
+                .padding(start = 6.dp, end = 6.dp)
+                .fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally,
             ) {
-                IconRow(
-                    painter = painterResource(id = R.drawable.cost1),
-                    "Money Icon"
-                )
-                RecipeCostNoSymbol(recipe)
-
-                SpacerW()
-
-                IconRow(
-                    painter = painterResource(id = R.drawable.kcal),
-                    "Kcal Icon"
-                )
-                RecipeKcal(recipe)
-
-                SpacerW()
-
-                IconRow(
-                    painter = painterResource(id = R.drawable.serving),
-                    "Serving Icon"
-                )
-                RecipeServings(recipe)
-
-                SpacerW()
-
-                IconRow(
-                    painter = painterResource(id = R.drawable.timer),
-                    "Timer Icon"
-                )
-                RecipeTime(recipe)
+            item {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 12.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    IconButton(onClick = { navController.navigate("home") }) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = "Back",
+                            tint = Color.Black
+                        )
+                    }
+                    RecipeTitle(
+                        recipe,
+                        text = " ${recipe.name} recipe",
+                        fontSize = 26.sp,
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier.weight(1f).padding(top = 4.dp, end = 53.dp)
+                    )
+                }
             }
-        }
-        item {
-            TextDefault(
-                "Ingredients",
-                fontWeight = FontWeight.SemiBold,
-                fontSize = 20.sp
-            )
-            SpacerH(10.dp)
-        }
-        //ingredients
-        itemsIndexed(recipe.ingredients){ index, ingredient ->
-            Text(
-                text = "● $ingredient",
-                fontSize = 12.sp,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(start = 10.dp)
-            )
-        }
-        item {
-            SpacerH(10.dp)
-            TextDefault(
-                "Instructions",
-                fontWeight = FontWeight.SemiBold,
-                fontSize = 20.sp
-            )
-            SpacerH(10.dp)
-        }
-        //instructions
-        itemsIndexed(recipe.instructions){ index, instruction ->
+            item {
+                AsyncImage(
+                    model = recipe.imageUrl,
+                    contentDescription = "Recipe Image",
+                    modifier = Modifier
+                        .clip(RoundedCornerShape(6.dp))
+                        .height(200.dp)
+                )
+            }
+            item {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 18.dp),
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    IconRow(
+                        painter = painterResource(id = R.drawable.cost1),
+                        "Money Icon"
+                    )
+                    RecipeCostNoSymbol(recipe)
 
-            Text(
-                text = "- $instruction",
-                fontSize = 12.sp,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(start = 10.dp)
-            )
+                    SpacerW()
+
+                    IconRow(
+                        painter = painterResource(id = R.drawable.kcal),
+                        "Kcal Icon"
+                    )
+                    RecipeKcal(recipe)
+
+                    SpacerW()
+
+                    IconRow(
+                        painter = painterResource(id = R.drawable.serving),
+                        "Serving Icon"
+                    )
+                    RecipeServings(recipe)
+
+                    SpacerW()
+
+                    IconRow(
+                        painter = painterResource(id = R.drawable.timer),
+                        "Timer Icon"
+                    )
+                    RecipeTime(recipe)
+                }
+            }
+            item {
+                TextDefault(
+                    "Ingredients",
+                    fontWeight = FontWeight.SemiBold,
+                    fontSize = 20.sp
+                )
+                SpacerH(10.dp)
+            }
+            //ingredients
+            itemsIndexed(recipe.ingredients) { index, ingredient ->
+                Text(
+                    text = "● $ingredient",
+                    fontSize = 12.sp,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(start = 10.dp)
+                )
+            }
+            item {
+                SpacerH(10.dp)
+                TextDefault(
+                    "Instructions",
+                    fontWeight = FontWeight.SemiBold,
+                    fontSize = 20.sp
+                )
+                SpacerH(10.dp)
+            }
+            //instructions
+            itemsIndexed(recipe.instructions) { index, instruction ->
+
+                Text(
+                    text = "- $instruction",
+                    fontSize = 12.sp,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(start = 10.dp)
+                )
+            }
         }
     }
 }

@@ -42,7 +42,8 @@ fun RecipeTitle(
     recipe: Recipe,
     text: String,
     fontSize: TextUnit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    textAlign: TextAlign
 ){
     Text(
         text = text,
@@ -90,7 +91,7 @@ fun RecipeCostNoSymbol(
         modifier = Modifier.offset(y = (-8).dp),
         text = String.format("%.2f",recipe.estimatedCost),
         fontSize = 11.sp,
-        color = Color.Gray,
+        color = Color.Black,
         fontFamily = poppinsFontFamily,
     )
 }
@@ -103,7 +104,7 @@ fun RecipeKcal(
         modifier = Modifier.offset(y = (-8).dp),
         text = "${recipe.kcal} kcal",
         fontSize = 11.sp,
-        color = Color.Gray,
+        color = Color.Black,
         fontFamily = poppinsFontFamily,
     )
 }
@@ -116,7 +117,7 @@ fun RecipeTime(
         modifier = Modifier.offset(y = (-8).dp),
         text = "${recipe.estimatedTime}'",
         fontSize = 11.sp,
-        color = Color.Gray,
+        color = Color.Black,
         fontFamily = poppinsFontFamily,
     )
 }
@@ -129,7 +130,7 @@ fun RecipeServings(
         modifier = Modifier.offset(y = (-8).dp),
         text = "${recipe.servings} servings",
         fontSize = 11.sp,
-        color = Color.Gray,
+        color = Color.Black,
         fontFamily = poppinsFontFamily,
     )
 }

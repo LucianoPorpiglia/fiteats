@@ -34,6 +34,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight.Companion.Bold
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -159,7 +160,8 @@ fun RecipeList(selectedCategory: String,navController: NavController) {
                         recipe,
                         text = recipe.name,
                         fontSize = 14.sp,
-                        Modifier.padding(top = 4.dp)
+                        Modifier.padding(top = 4.dp),
+                        textAlign = TextAlign.Center
                     )
                     Row(
                         modifier = Modifier.fillMaxWidth(),

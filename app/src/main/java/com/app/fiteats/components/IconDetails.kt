@@ -27,6 +27,6 @@ fun IconRow(
         painter = painter,
         contentDescription = contentDescription,
         modifier = modifier.size(size),
-        tint = tint
+        tint = Color.Black
     )
 }
