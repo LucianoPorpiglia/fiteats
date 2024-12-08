@@ -1,27 +1,23 @@
 package com.app.fiteats.views
 
 import android.annotation.SuppressLint
-import android.content.ClipData.Item
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -29,7 +25,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -39,7 +34,6 @@ import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.app.fiteats.R
 import com.app.fiteats.components.IconRow
-import com.app.fiteats.components.RecipeCost
 import com.app.fiteats.components.RecipeCostNoSymbol
 import com.app.fiteats.components.RecipeKcal
 import com.app.fiteats.components.RecipeServings
@@ -49,7 +43,6 @@ import com.app.fiteats.components.SpacerH
 import com.app.fiteats.components.SpacerW
 import com.app.fiteats.components.TextDefault
 import com.app.fiteats.data.recipes
-import com.app.fiteats.ui.theme.poppinsFontFamily
 
 @SuppressLint("DefaultLocale")
 @Composable
@@ -60,45 +53,48 @@ fun DetailsView(
 
     val recipe = recipes.find { it.name == recipeName } ?: return
 
-    Box(
+    Box (
         modifier = Modifier
             .fillMaxSize()
-            .background(
-                Brush.verticalGradient(
-                    colors = listOf(
-                        Color(0xFF266F53),
-                        Color(0xFFe5e5e5)
-                    ) // Blanco en la parte superior y verde en la parte inferior
-                )
-            )
+            .background(Color(0xFFe5e5e5))
     ) {
         LazyColumn(
             modifier = Modifier
                 .padding(start = 6.dp, end = 6.dp)
                 .fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally,
+            horizontalAlignment = Alignment.CenterHorizontally
             ) {
             item {
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(vertical = 12.dp),
-                    horizontalArrangement = Arrangement.SpaceBetween
+                        .padding(vertical = 8.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
                     IconButton(onClick = { navController.navigate("home") }) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                             contentDescription = "Back",
-                            tint = Color.Black
+                            tint = Color.Black,
+                            modifier = Modifier.size(22.dp)
                         )
                     }
                     RecipeTitle(
                         recipe,
-                        text = " ${recipe.name} recipe",
+                        text = " ${recipe.name}",
                         fontSize = 26.sp,
                         textAlign = TextAlign.Center,
-                        modifier = Modifier.weight(1f).padding(top = 4.dp, end = 53.dp)
+                        modifier = Modifier.weight(1f)
                     )
+                    IconButton(onClick = { println("Like") }) {
+                        Icon(
+                            painter = painterResource(R.drawable.like),
+                            contentDescription = "Like",
+                            tint = Color.Black,
+                            modifier = Modifier.size(22.dp)
+                        )
+                    }
                 }
             }
             item {

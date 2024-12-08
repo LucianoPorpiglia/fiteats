@@ -23,8 +23,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.app.fiteats.R
-import com.app.fiteats.navigation.NavManager
-import com.app.fiteats.widget.button.CustomButton
 import com.app.fiteats.widget.button.FirstButton
 
 @Composable
